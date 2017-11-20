@@ -1,0 +1,169 @@
+" Swap file setup to a custom directory
+set noswapfile
+
+" Better command-line completion
+" set wildmenu
+
+" Show partial commands in the last line of the screen
+set showcmd
+
+" Highlight searches (use <C-L> to temporarily turn off highlighting; see the
+" mapping of <C-L> below)
+set hlsearch
+
+" Removes trailing spaces automatically
+autocmd BufWritePre *.rb :%s/\s\+$//e
+
+" Use case insensitive search, except when using capital letters
+set ignorecase
+set smartcase
+
+" When opening a new line and no filetype-specific indenting is enabled, keep
+" the same indent as the line you're currently on. Useful for READMEs, etc.
+set autoindent
+
+" Stop certain movements from always going to the first character of a line.
+" While this behaviour deviates from that of Vi, it does what most users
+" coming from other editors would expect.
+set nostartofline
+
+" Display the cursor position on the last line of the screen or in the status
+" line of a window
+set ruler
+
+" Always display the status line, even if only one window is displayed
+set laststatus=2
+
+" Instead of failing a command because of unsaved changes, instead raise a
+" " dialogue asking if you wish to save changed files.
+set confirm
+
+" Use visual bell instead of beeping when doing something wrong
+set visualbell
+
+set autoread                    "Reload files changed outside vim"
+set gcr=a:blinkon0              "Disable cursor blink"
+set list listchars=tab:\ \ ,trail:·
+" set rnu " relative number
+
+" Display line numbers on the left
+set number
+
+" Map <C-L> (redraw screen) to also turn off search highlighting until the
+" next search
+nnoremap <C-g> :nohl<CR>
+
+runtime macros/matchit.vim
+
+" Allow backspacing over autoindent, line breaks and start of insert action
+set backspace=indent,eol,start
+
+" let g:solarized_termcolors=256
+syntax enable
+
+colorscheme one
+let g:one_allow_italics = 1
+let g:airline_theme='one'
+set background=dark
+
+"Credit joshdick
+"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
+"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
+"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
+if (empty($TMUX))
+  if (has("nvim"))
+  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  endif
+  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+  if (has("termguicolors"))
+    set termguicolors
+  endif
+endif
+
+set guifont=DejaVu\ Sans\ Mono:h14 
+
+" Map vimrc editing / saving
+nmap <leader>vr :sp $MYVIMRC<cr>
+nmap <leader>so :source $MYVIMRC<cr>
+
+" Using vim-json
+au! BufRead,BufNewFile *.json set filetype=json
+
+" File deleting maps
+nnoremap RM :call delete(expand('%')) \| bdelete!<CR>
+
+" Tabs configurations
+" "------------------------
+
+for tab_number in [1,2,3,4, 5, 6]
+  execute 'map <silent> <C-w>' . tab_number . ' :tabnext ' . tab_number . '<cr>'
+endfor
+
+" Delete trailing white space when saving
+func! DeleteTrailingWS()
+  exe "normal mz"
+  %s/\s\+$//ge
+  exe "normal `z"
+endfunc
+
+" au BufWrite * :call DeleteTrailingWS()
+
+highlight ExtraWhitespace ctermbg=red
+
+function! RenameFile()
+    let old_name = expand('%')
+    let new_name = input('Renaming file to path: ', expand('%'), 'file')
+    if new_name != '' && new_name != old_name
+        exec ':saveas ' . new_name
+        exec ':silent !rm ' . old_name
+        redraw!
+    endif
+endfunction
+
+function! DuplicateFile()
+    let current_file = expand('%')
+    let new_file = input('Duplicating file to path: ', expand('%'), 'file')
+    if new_file != '' && new_file != current_file
+        exec ':saveas ' . new_file
+        redraw!
+    endif
+endfunction
+
+" Renaming file
+map <leader>fr :call RenameFile()<cr>
+map <leader>fd :call DuplicateFile()<cr>
+
+au BufReadPost *.hbs set filetype=html.mustache syntax=html.mustache
+
+" highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+" match OverLength /\%81v.\+/
+
+" clipboard copy
+vmap <leader>co :w !pbcopy<cr>
+
+function! SetPaste()
+  exec ":set paste"
+  exec ":startinsert"
+endfunction
+
+" set paste mode
+nnoremap <leader>P :call SetPaste()<cr>
+
+" set no paste mode
+nnoremap <leader>NP :set nopaste<cr>
+
+" save file
+nnoremap <leader>z :update<cr>
+
+set timeout timeoutlen=3000 ttimeoutlen=100
+
+" forcing 256 colors
+set t_Co=256
+
+nnoremap <leader>rr :Rake routes<cr>
+
+
+" vim:ft=vim

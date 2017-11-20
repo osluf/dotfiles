@@ -1,0 +1,4 @@
+Bundle 'tpope/vim-dispatch'
+Bundle 'radenling/vim-dispatch-neovim'
+
+" vim:ft=vim

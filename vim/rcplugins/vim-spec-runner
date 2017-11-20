@@ -1,0 +1,23 @@
+" Spec Runner - Generic spec runner for rspec and JS
+Bundle 'janko-m/vim-test'
+
+" map <leader>as <Plug>TestNearest 
+" map <leader>s <Plug>TestNearest -strategy=dispatch
+" map <leader>l <Plug>RunMostRecentSpec
+" map <leader>t <Plug>RunCurrentSpecFile
+
+nmap <silent> <leader>s :TestNearest -strategy=dispatch<CR>
+nmap <silent> <leader>as :TestNearest -strategy=dispatch<CR>
+nmap <silent> <leader>T :TestFile<CR>
+nmap <silent> <leader>a :TestSuite<CR>
+nmap <silent> <leader>l :TestLast<CR>
+nmap <silent> <leader>g :TestVisit<CR>
+
+autocmd FileType java let b:dispatch = 'javac %'
+
+" let test#strategy = 'iterm'
+let test#ruby#minitest#options = '--color'
+let test#strategy = "dispatch"
+" let g:test#preserve_screen = 1
+
+" vim:ft=vim

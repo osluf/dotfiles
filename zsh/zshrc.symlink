@@ -1,0 +1,66 @@
+# shortcut to this dotfiles path is $ZSH
+export ZSH=$HOME/projects/personal/dotfiles
+
+# your project folder that we can `c [tab]` to
+export PROJECTS=~/projects
+
+# Stash your environment variables in ~/.localrc. This means they'll stay out
+# of your main dotfiles repository (which may be public, like this one), but
+# you'll have access to them in your scripts.
+if [[ -a ~/.localrc ]]
+then
+  source ~/.localrc
+fi
+
+# all of our zsh files
+typeset -U config_files
+config_files=($ZSH/**/*.zsh)
+
+# load the path files
+for file in ${(M)config_files:#*/path.zsh}
+do
+  source $file
+done
+
+# load everything but the path and completion files
+for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}
+do
+  source $file
+done
+
+# initialize autocomplete here, otherwise functions won't be loaded
+autoload -U compinit
+compinit
+
+# load every completion after autocomplete loads
+for file in ${(M)config_files:#*/completion.zsh}
+do
+  source $file
+done
+
+unset config_files
+
+# Z navigation script link
+. $ZSH/system/z.sh
+
+# /usr/local/opt/qt/bin:/Users/osw/perl5/bin:./bin:/usr/local/bin:/usr/local/sbin:/Users/osw/projects/personal/dotfiles/bin:/Users/osw/.rbenv/shims:/Users/osw/projects/go/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Applications/Postgres.app/Contents/Versions/latest/bin:/usr/local/smlnj/bin
+
+PATH="/Users/osw/.rbenv/shims:/Users/osw/.rbenv/bin:/Users/osw/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/Users/osw/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/Users/osw/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/Users/osw/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/Users/osw/perl5"; export PERL_MM_OPT;
+
+export PATH="$PATH:/usr/local/smlnj/bin"
+
+# Forces Postgresql server to use localhost by default:
+# https://github.com/PostgresApp/PostgresApp/issues/48#issuecomment-287940073
+export PGHOST=localhost
+
+compdef g=git
+export PATH="/usr/local/opt/qt/bin:$PATH"
+
+#GEM_PATH=$GEM_PATH:~/.rbenv/versions/2.3.3/lib/ruby/gems/2.3.0/gems/
+
+alias vi='nvim'
+alias vim='nvim'

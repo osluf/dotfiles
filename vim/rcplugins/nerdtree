@@ -1,0 +1,6 @@
+Plugin 'scrooloose/nerdtree'
+
+let NERDTreeShowHidden=1
+map <C-t> :NERDTreeToggle<CR>
+
+" vim:ft=vim

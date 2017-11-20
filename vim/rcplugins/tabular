@@ -1,0 +1,8 @@
+Plugin 'godlygeek/tabular'
+
+map <leader>T= :Tabularize /=<cr>
+map <leader>T{ :Tabularize /{<cr>
+map <leader>T: :Tabularize /:<cr>
+
+" vim:ft=vim
+

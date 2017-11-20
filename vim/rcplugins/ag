@@ -1,0 +1,7 @@
+Plugin 'rking/ag.vim'
+
+" set runtimepath^=~/.vim/bundle/ag
+
+" map <leader> :Ag "def <cword>" /any/path/<CR>
+
+" vim:ft=vim

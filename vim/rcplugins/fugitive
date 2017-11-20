@@ -1,0 +1,6 @@
+Plugin 'tpope/vim-fugitive'
+Plugin 'shumphrey/fugitive-gitlab.vim'
+
+" let g:fugitive_gitlab_domains = ['https://gitlab.com']
+
+" vim:ft=vim
