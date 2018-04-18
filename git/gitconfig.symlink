@@ -42,5 +42,6 @@
 	autosquash = true
 [user]
 	email = oswaldo@gitlab.com
+	name = Oswaldo Ferreira
 [fsck]
 	zeroPaddedFilemode = ignore

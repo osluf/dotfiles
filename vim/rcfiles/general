@@ -83,7 +83,9 @@ if (empty($TMUX))
   endif
 endif
 
-set guifont=DejaVu\ Sans\ Mono:h14 
+" set guifont=DejaVu\ Sans\ Mono:h14 
+
+set guifont=3270\ Nerd\ Font:h14
 
 " Map vimrc editing / saving
 nmap <leader>vr :sp $MYVIMRC<cr>
