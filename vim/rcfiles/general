@@ -167,5 +167,4 @@ set t_Co=256
 
 nnoremap <leader>rr :Rake routes<cr>
 
-
 " vim:ft=vim

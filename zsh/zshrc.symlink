@@ -68,3 +68,4 @@ alias vim='nvim'
 # Potgres alias (homebrew)
 alias pg-start="launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist"
 alias pg-stop="launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist"
+export PATH="$(brew --prefix qt@5.5)/bin:$PATH"
