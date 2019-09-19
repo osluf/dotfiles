@@ -12,7 +12,7 @@ set showcmd
 set hlsearch
 
 " Removes trailing spaces automatically
-autocmd BufWritePre *.rb :%s/\s\+$//e
+" autocmd BufWritePre *.rb :%s/\s\+$//e
 
 " Use case insensitive search, except when using capital letters
 set ignorecase
@@ -105,11 +105,11 @@ for tab_number in [1,2,3,4, 5, 6]
 endfor
 
 " Delete trailing white space when saving
-func! DeleteTrailingWS()
-  exe "normal mz"
-  %s/\s\+$//ge
-  exe "normal `z"
-endfunc
+" func! DeleteTrailingWS()
+"   exe "normal mz"
+"   %s/\s\+$//ge
+"   exe "normal `z"
+" endfunc
 
 " au BufWrite * :call DeleteTrailingWS()
 

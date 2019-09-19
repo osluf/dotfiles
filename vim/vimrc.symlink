@@ -29,6 +29,7 @@ call vundle#rc("~/.vim/bundles/")
 call s:SourceConfigFilesIn('rcplugins')
 
 Plugin 'ryanoasis/vim-devicons'
+Plugin 'posva/vim-vue'
 
 filetype plugin indent on " required!
 syntax on
