@@ -61,10 +61,10 @@ set backspace=indent,eol,start
 " let g:solarized_termcolors=256
 syntax enable
 
-colorscheme one
-let g:one_allow_italics = 1
-let g:airline_theme='one'
-set background=dark
+Plugin 'dracula/vim', { 'name': 'dracula' }
+
+colorscheme dracula
+let g:airline_theme='dracula'
 
 "Credit joshdick
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
