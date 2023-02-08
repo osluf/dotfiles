@@ -1,0 +1,21 @@
+" Replacing deoplete by coc
+if has('nvim')
+ Plugin 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+ Plugin 'Shougo/deoplete.nvim'
+Plugin 'roxma/nvim-yarp'
+Plugin 'roxma/vim-hug-neovim-rpc'
+endif
+
+let g:deoplete#enable_at_startup = 1
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Tried to replace deoplete to use coc but for some crazy reason
+" coc can't find node, even setting the path.
+"
+"Plugin 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+"let g:coc_node_path = '/usr/local/opt/node@16/bin/node'
+
+
+" vim:ft=vim

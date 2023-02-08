@@ -1,0 +1,6 @@
+Plugin 'dense-analysis/ale'
+
+let g:ale_linters = { 'cs': ['OmniSharp'], 'javascript': ['flow-language-server'] }
+let b:ale_linters = ['cs', 'flow-language-server']
+
+" vim:ft=vim

@@ -140,17 +140,37 @@ install_dotfiles () {
 setup_gitconfig
 install_dotfiles
 
-# If we're on a Mac, let's install and setup homebrew.
-if [ "$(uname -s)" == "Darwin" ]
+if ! command -v zsh &> /dev/null
 then
-  info "installing dependencies"
-  if source bin/dot > /tmp/dotfiles-dot 2>&1
-  then
-    success "dependencies installed"
-  else
-    fail "error installing dependencies"
-  fi
+	info "installing zsh"
+	sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
+
+if ! command -v brew &> /dev/null
+then
+	info "installing brew"
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	echo 'eval $(/opt/homebrew/bin/brew shellenv)' >> ~/.zshrc
+	eval $(/opt/homebrew/bin/brew shellenv)
+fi
+
+if ! command -v cask &> /dev/null
+then
+	info "installing cask"
+	brew install cask
+fi
+
+
+info "setting up libpq (pg gem dependency)"
+brew install libpq
+echo 'export PATH="/opt/homebrew/opt/libpq/bin:$PATH"' >> ~/.zshrc
+
+
+info "bundling brewfile"
+brew bundle
+
+info "setting up nodejs"
+nvm install 12.21.0
 
 echo ''
 echo '  All installed!'

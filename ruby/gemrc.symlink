@@ -4,3 +4,7 @@
 :backtrace: false
 :benchmark: false
 gem: --no-document
+
+:sources:
+- https://rubygems.org/
+- https://osluf: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@rubygems.pkg.github.com/OWNER/

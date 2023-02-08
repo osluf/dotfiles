@@ -37,7 +37,7 @@
 [rebase]
 	autosquash = true
 [user]
-	email = oswaldo@gitlab.com
+	email = oswluizf@gmail.com
 	name = Oswaldo Ferreira
 [fsck]
 	zeroPaddedFilemode = ignore

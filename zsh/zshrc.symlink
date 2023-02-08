@@ -1,3 +1,17 @@
+# Point to the correct brew binary depending on which
+# architecture we're using.
+if [ "$(arch)" = "arm64" ]; then
+  #export RBENV_ROOT=/opt/homebrew/opt/rbenv
+  eval $(/opt/homebrew/bin/brew shellenv);
+else # i386
+  eval $(/usr/local/bin/brew shellenv);
+fi
+alias ibrew='arch -x86_64 /usr/local/bin/brew'
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
 # shortcut to this dotfiles path is $ZSH
 export ZSH=$HOME/projects/personal/dotfiles
 
@@ -60,20 +74,52 @@ export PGHOST=localhost
 compdef g=git
 export PATH="/usr/local/opt/qt/bin:$PATH"
 
-#GEM_PATH=$GEM_PATH:~/.rbenv/versions/2.3.3/lib/ruby/gems/2.3.0/gems/
-
-alias vi='nvim'
-alias vim='nvim'
+#GEM_PATH=$GEM_PATH:~/.rbenv/versions/2.3.3/lib/ruby/gems/2.3.0/gems`
 
 # Potgres alias (homebrew)
 alias pg-start="launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist"
 alias pg-stop="launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist"
-export PATH="$(brew --prefix qt@5.5)/bin:$PATH"
+alias vim="nvim"
 
-export PKG_CONFIG_PATH="/usr/local/opt/icu4c/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PATH=/usr/local/opt/icu4c/bin:/usr/local/opt/icu4c/sbin:$PATH
 export LDFLAGS="-L/usr/local/opt/icu4c/lib"
-export CPPFLAGS="-I/usr/local/opt/icu4c/include"
+# export CPPFLAGS="-I/usr/local/opt/icu4c/include"
 
 # Bug https://github.com/rtomayko/shotgun/issues/69
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
+# Homebrew
+export PATH=/opt/homebrew/bin:$PATH
+export PATH="/opt/homebrew/sbin:$PATH"
+
+# rbenv
+export PATH=$RBENV_ROOT/bin:$PATH
+eval "$(rbenv init -)"
+
+# openssl
+export PATH="/opt/homebrew/opt/openssl@1.1/bin:$PATH"
+#export LDFLAGS="-L/opt/homebrew/opt/openssl@1.1/lib"
+#export LDFLAGS="-L/opt/homebrew/opt/libpq/lib"
+#export CPPFLAGS="-I/opt/homebrew/opt/libpq/include"
+#export CPPFLAGS="-I/opt/homebrew/opt/openssl@1.1/include"
+
+# Non M1 rbenv install
+export LDFLAGS="-L/usr/local/opt/readline/lib"
+export CPPFLAGS="-I/usr/local/opt/readline/include"
+export PKG_CONFIG_PATH="/usr/local/opt/readline/lib/pkgconfig"
+export PKG_CONFIG_PATH="/usr/local/opt/icu4c/lib/pkgconfig:$PKG_CONFIG_PATH"
+
+export PATH="/usr/local/opt/libpq/bin:$PATH"
+
+nvm use 12.21.0
+export PATH="/usr/local/opt/m4/bin:$PATH"
+export PATH="/opt/homebrew/opt/postgresql@11/bin:$PATH"
+export CPPFLAGS="-I/opt/homebrew/opt/postgresql@11/include"
+export PKG_CONFIG_PATH="/opt/homebrew/opt/postgresql@11/lib/pkgconfig"
+
+. $HOME/.asdf/asdf.sh
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+export PATH="$HOME/.asdf/shims:$PATH"
+
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
